@@ -20,6 +20,6 @@ io.on("connection", function (socket) {
 
     socket.on("message-packet", (arg) => {
         console.log("Message recieved: " + arg)
-        socket.emit("message-response", arg);
+        socket.broadcast.emit("message-response", arg);
     });
 });

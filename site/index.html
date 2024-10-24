@@ -23,6 +23,9 @@
 
             function sendMessage() {
                 socket.emit("message-packet", document.getElementById("message-input").value);
+                var message = document.createElement("p");
+                    message.textContent = document.getElementById("message-input").value;
+                    document.getElementById("messages").appendChild(message);
                 document.getElementById("message-input").value = "";
             }
         </script>
