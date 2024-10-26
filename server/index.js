@@ -22,11 +22,17 @@ io.on("connection", function (socket) {
       socket.broadcast.emit("message-response", arg);
     });
 
-    socket.on("report-packet", (arg) => {
+    socket.on("report-packet-1", (arg) => {
       data = {
         "type": "Police",
-        "age": 99
-      }
+        "location": {
+          "latitude": arg.latitude,
+          "longitude": arg.longitude
+        },
+        "timestamp": new Date().toISOString(),
+        "description": arg.description || "",
+        "username": arg.username,
+      };
 
       data["type"]
       socket.broadcast.emit("message-response", arg);
