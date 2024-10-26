@@ -21,4 +21,14 @@ io.on("connection", function (socket) {
     socket.on("message-packet", (arg) => {
       socket.broadcast.emit("message-response", arg);
     });
+
+    socket.on("report-packet", (arg) => {
+      data = {
+        "type": "Police",
+        "age": 99
+      }
+
+      data["type"]
+      socket.broadcast.emit("message-response", arg);
+    });
 });
