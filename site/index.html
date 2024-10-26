@@ -28,10 +28,8 @@
             }
 
             function sendMessage() {
-                var data = {
-                    "type": "Police",
-                    "timestamp": 2
-                }
+                
+                
                 socket.emit("report-packet", data);
             }
         </script>

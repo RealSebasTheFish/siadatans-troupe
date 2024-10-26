@@ -18,17 +18,20 @@ const io = socket(server);
 io.on("connection", function (socket) {
     console.log("Made socket connection");
 
-    socket.on("message-packet", (arg) => {
-      socket.broadcast.emit("message-response", arg);
-    });
-
-    socket.on("report-packet", (arg) => {
+    socket.on("report-packet-1", (arg) => {
       data = {
-        "type": "Police",
-        "age": 99
-      }
+        "type": "Police", // Ping type
+        "location": {
+          "latitude": arg.latitude, // location part 1
+          "longitude": arg.longitude // location part 2
+        },
+        "timestamp": new Date().toISOString(), // timestamp from the server
+        "username": arg.username, // username input
+      };
 
       data["type"]
-      socket.broadcast.emit("message-response", arg);
+      socket.broadcast.emit("report-packet-1", arg);
     });
+    
+
 });
