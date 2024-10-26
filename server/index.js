@@ -18,7 +18,7 @@ const io = socket(server);
 io.on("connection", function (socket) {
     console.log("Made socket connection");
 
-    socket.on("example", (arg) => {
-
+    socket.on("message-packet", (arg) => {
+      socket.broadcast.emit("message-response", arg);
     });
 });

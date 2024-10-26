@@ -14,10 +14,20 @@
                     console.log("Connection Successful!");
                 });
 
-                socket.on("example", function(data) {
-
+                socket.on("message-response", function(data) {
+                    // Add it to website
                 });
             });
+
+            
+
+            function sendMessage() {
+                var data = {
+                    "type": "Police",
+                    "timestamp": 12367812
+                }
+                socket.emit("report-packet", data);
+            }
         </script>
     </head>
     <body>
