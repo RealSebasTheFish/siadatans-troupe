@@ -31,8 +31,8 @@ document, body {
 
 #incentive-button {
     position: fixed;
-    top: 1vw;
-    right: 1vw;
+    bottom: 8vw;
+    left: 1vw;
     background-color: white;
     border-radius: 4vw;
     width: 6vw;
