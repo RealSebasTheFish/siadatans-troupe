@@ -5,10 +5,10 @@
         <link rel="stylesheet" type="text/css" href="main.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="https://cdn.socket.io/4.8.0/socket.io.min.js" integrity="sha384-OoIbkvzsFFQAG88r+IqMAjyOtYDPGO0cqK5HF5Uosdy/zUEGySeAzytENMDynREd" crossorigin="anonymous"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnaiOvJieIvUWy2VJxugGrq6n-hWN6nv4&libraries=drawing"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7ftdf2Kqclh1iBAQpKjmOMqfUrGQAN2Y&libraries=drawing"></script>
 
         <script>
-            const socket = io("https://fb85-199-212-64-70.ngrok-free.app/", { transports : ['websocket'] });
+            const socket = io("https://2b66-199-212-64-70.ngrok-free.app/", { transports : ['websocket'] });
             console.log(socket);
 
             let map;
@@ -20,7 +20,10 @@
                 });
 
                 socket.on("response-packet", function(data) {
-                    data["type"]
+                    console.log(data);
+                    $("#notification-image").prop("src", "img/" + data["type"] + ".png");
+                    $("#notification-text").text(data["username"] + " reported a " + data["type"] + "!");
+                    showNotification();
                 });
 
                 initMap(); // Initialize the map on document ready
@@ -44,10 +47,20 @@
                 $("#incentive-select-menu").css("display", "none");
             }
 
+            var notificationTimer;
+            function showNotification() {
+                $("#notification").css("opacity", "100");
+                clearTimeout(notificationTimer);
+                notificationTimer = setTimeout(function(){
+                    $("#notification").css("opacity", "0");
+                },5000);
+            }
+
             function report(type) {
+                closeReportMenu();
                 var latitude = null;
                 var longitude = null;
-                var name = null;
+                var name = "Someone";
                 const data = {
                     "type": type, // Ping type
                     "location": {
@@ -113,6 +126,13 @@
         <div id="map"></div>
         <button id="report-button" onclick="openReportMenu();"><img id="report-button-image" src="img/caution.png" /></button>
         <button id="incentive-button" onclick="openIncentiveMenu();"><img id="incentive-button-image" src="img/dollar-sign.png" /></button>
+        <div id="notification-bar">
+            <div id="notification">
+                <img id="notification-image" src="img/police.png"/>
+                <p id="notification-text">Someone reported a police!</p>
+            </div>
+        </div>
+        
         <div id="report-select-menu">
             <table>
                 <tr>
