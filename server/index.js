@@ -20,18 +20,17 @@ io.on("connection", function (socket) {
 
     socket.on("report-packet-1", (arg) => {
       data = {
-        "type": "Police",
+        "type": "Police", // Ping type
         "location": {
-          "latitude": arg.latitude,
-          "longitude": arg.longitude
+          "latitude": arg.latitude, // location part 1
+          "longitude": arg.longitude // location part 2
         },
-        "timestamp": new Date().toISOString(),
-        "description": arg.description || "",
-        "username": arg.username,
+        "timestamp": new Date().toISOString(), // timestamp from the server
+        "username": arg.username, // username input
       };
 
       data["type"]
-      socket.broadcast.emit("message-response", arg);
+      socket.broadcast.emit("report-packet-1", arg);
     });
     
 
