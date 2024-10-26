@@ -22,18 +22,7 @@ io.on("connection", function (socket) {
       socket.broadcast.emit("message-response", arg);
     });
 
-    socket.on("report-packet-1", (arg) => {
-      data = {
-        "type": "Police", // Ping type
-        "location": {
-          "latitude": arg.latitude, // location part 1
-          "longitude": arg.longitude // location part 2
-        },
-        "timestamp": new Date().toISOString(), // timestamp from the server
-        "username": arg.username, // username input
-      };
-
-      data["type"]
-      socket.broadcast.emit("report-packet-1", arg);
+    socket.on("report-packet", (arg) => {
+      socket.broadcast.emit("response-packet", arg);
     });
 });
