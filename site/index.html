@@ -21,8 +21,40 @@
 
                 socket.on("response-packet", function(data) {
                     console.log(data);
+                    var type = data["type"];
+                    var result = "";
+
+                    switch(type) {
+                        case "police":
+                            result = "a police";
+                            break;
+                        case "crash":
+                            result = "a crash";
+                            break;
+                        case "pothole":
+                            result = "a pothole";
+                            break;
+                        case "blocked-lane":
+                            result = "a blocked lane";
+                            break;
+                        case "bad-weather":
+                            result = "bad weather";
+                            break;
+                        case "construction":
+                            result = "construction";
+                            break;
+                        case "car-on-shoulder":
+                            result = "a car on shoulder";
+                            break;
+                        case "gas-prices":
+                            result = "a gas price";
+                            break;
+                        default:
+                            // code block
+                    }
+
                     $("#notification-image").prop("src", "img/" + data["type"] + ".png");
-                    $("#notification-text").text(data["username"] + " reported a " + data["type"] + "!");
+                    $("#notification-text").text(data["username"] + " reported " + result + "!");
                     showNotification();
                 });
 
@@ -185,17 +217,17 @@
                 <tr><td class="incentive-entry">
                     <h2 class="incentive-title">Louise's Bakery</h2>
                     <img class="incentive-image" src="img/louis.png"/>
-                    <p class="incentive-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non sapien laoreet, gravida metus eget, tristique nisl. In non mollis augue. Fusce a dui rhoncus arcu semper semper. Cras ac neque ac mauris efficitur convallis. Sed nunc nulla, mattis et arcu nec, molestie tincidunt neque. Vestibulum vitae nisl commodo, feugiat lectus sed, rhoncus magna. In ac eleifend leo. Quisque volutpat eu libero eget venenatis. Morbi auctor nunc et enim hendrerit luctus.</p>
+                    <p class="incentive-description">Louise's bakery is known in the city for is amazing pastries and fresh made bread. It is a great place to meet with friends, study, or just to have a good time! </p>
                 </td></tr>
                 <tr><td class="incentive-entry">
                     <h2 class="incentive-title">Bob's Convenience</h2>
                     <img class="incentive-image" src="img/bob.png"/>
-                    <p class="incentive-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non sapien laoreet, gravida metus eget, tristique nisl. In non mollis augue. Fusce a dui rhoncus arcu semper semper. Cras ac neque ac mauris efficitur convallis. Sed nunc nulla, mattis et arcu nec, molestie tincidunt neque. Vestibulum vitae nisl commodo, feugiat lectus sed, rhoncus magna. In ac eleifend leo. Quisque volutpat eu libero eget venenatis. Morbi auctor nunc et enim hendrerit luctus.</p>
+                    <p class="incentive-description">"Convenience at your fingertips! Bob's convenience is a store that is designed for easy and enjoyable shopping. From snacks and beverages to household staples and personal care items—you'll find everything you need in one spot. Swing by for a hassle-free shopping experience where quality and convenience come together!"</p>
                 </td></tr>
                 <tr><td class="incentive-entry">
                     <h2 class="incentive-title">Gregs's Eatery</h2>
                     <img class="incentive-image" src="img/greg.png"/>
-                    <p class="incentive-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non sapien laoreet, gravida metus eget, tristique nisl. In non mollis augue. Fusce a dui rhoncus arcu semper semper. Cras ac neque ac mauris efficitur convallis. Sed nunc nulla, mattis et arcu nec, molestie tincidunt neque. Vestibulum vitae nisl commodo, feugiat lectus sed, rhoncus magna. In ac eleifend leo. Quisque volutpat eu libero eget venenatis. Morbi auctor nunc et enim hendrerit luctus.</p>
+                    <p class="incentive-description">Greg's Eatery is a European-inspired dining establishment that offers a curated selection of delicious, freshly prepared dishes. Located in York Region, the eatery emphasizes the use of high-quality, locally sourced ingredients, ensuring a delightful culinary experience.</p>
                 </td></tr>
             </table>
         </div>
