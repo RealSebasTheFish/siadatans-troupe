@@ -27,6 +27,15 @@
                 $("#report-select-menu").css("display", "none");
             }
 
+
+            function openIncentiveMenu() {
+                $("#incentive-select-menu").css("display", "block");
+            }
+
+            function closeIncentiveMenu() {
+                $("#incentive-select-menu").css("display", "none");
+            }
+
             function report(type) {
                 var latitude = null;
                 var longitude = null;
@@ -48,6 +57,7 @@
     <body>
         <iframe id="map" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/view?zoom=13&center=43.7735%2C-79.5019&key=AIzaSyC8eS78o6WnetL25F4Fg7-74WpSBKAKmSY"></iframe>
         <button id="report-button" onclick="openReportMenu();"><img id="report-button-image" src="img/caution.png" /></button>
+        <button id="incentive-button" onclick="openIncentiveMenu();"><img id="incentive-button-image" src="img/dollar-sign.png" /></button>
         <div id="report-select-menu">
             <table>
                 <tr>
@@ -64,6 +74,16 @@
                     <td class="report-image" onclick="report('car-on-shoulder');"><img src="img/car-on-shoulder.png" /></td>
                     <td class="report-image" onclick="report('gas-prices');"><img src="img/gas-prices.png" /></td>
                     <td class="report-image" onclick="closeReportMenu();"><img src="img/x.png" /></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="incentive-select-menu">
+            <img id="close-incentive-menu" onclick="closeIncentiveMenu();" src="img/x.png" />
+            <table>
+                <tr><td>
+
+                    </td>
                 </tr>
             </table>
         </div>
