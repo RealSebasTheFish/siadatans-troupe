@@ -14,39 +14,13 @@
                     console.log("Connection Successful!");
                 });
 
-                socket.on("message-response", function(data) {
-                    var message = document.createElement("p");
-                    message.textContent = data;
-                    document.getElementById("messages").prepend(message);
-                });
+                socket.on("example", function(data) {
 
-                var messageInput = document.getElementById("message-input");
-                messageInput.addEventListener("keypress", function(event) {
-                    // If the user presses the "Enter" key on the keyboard
-                    if (event.key === "Enter") {
-                        // Cancel the default action, if needed
-                        event.preventDefault();
-                        // Trigger the button element with a click
-                        document.getElementById("submit").click();
-                    }
                 });
             });
-
-            
-
-            function sendMessage() {
-                socket.emit("message-packet", document.getElementById("message-input").value);
-                var message = document.createElement("p");
-                message.textContent = document.getElementById("message-input").value;
-                document.getElementById("messages").prepend(message);
-                document.getElementById("message-input").value = "";
-                return false;
-            }
         </script>
     </head>
     <body>
-        <input type="text" id="message-input"/>
-        <button id="submit" onclick="sendMessage()">Send</button>
-        <div id="messages"></div>
+
     </body>
 </html>
