@@ -19,12 +19,18 @@
                 });
             });
 
-            
+            function openReportMenu() {
+                $("#report-select-menu").css("display", "block");
+            }
+
+            function closeReportMenu() {
+                $("#report-select-menu").css("display", "none");
+            }
 
             function sendMessage() {
                 var data = {
                     "type": "Police",
-                    "timestamp": 
+                    "timestamp": 2
                 }
                 socket.emit("report-packet", data);
             }
@@ -32,6 +38,25 @@
     </head>
     <body>
         <iframe id="map" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/view?zoom=13&center=43.7735%2C-79.5019&key=AIzaSyC8eS78o6WnetL25F4Fg7-74WpSBKAKmSY"></iframe>
-        <button id="report-button"><img id="report-button-image" src="img/caution.png" /></button>
+        <button id="report-button" onclick="openReportMenu();"><img id="report-button-image" src="img/caution.png" /></button>
+        <div id="report-select-menu">
+            <table>
+                <tr>
+                    <td class="report-image" onclick="report('police');"><img src="img/police.png" /></td>
+                    <td class="report-image" onclick="report('crash');"><img src="img/crash.png" /></td>
+                    <td class="report-image" onclick="report('pothole');"><img src="img/pothole.png" /></td>
+                </tr>
+                <tr>
+                    <td class="report-image" onclick="report('blocked-lane');"><img src="img/blocked-lane.png" /></td>
+                    <td class="report-image" onclick="report('bad-weather');"><img src="img/bad-weather.png" /></td>
+                    <td class="report-image" onclick="report('construction');"><img src="img/construction.png" /></td>
+                </tr>
+                <tr>
+                    <td class="report-image" onclick="report('car-on-shoulder');"><img src="img/car-on-shoulder.png" /></td>
+                    <td class="report-image" onclick="report('gas-prices');"><img src="img/gas-prices.png" /></td>
+                    <td class="report-image" onclick="closeReportMenu();"><img src="img/x.png" /></td>
+                </tr>
+            </table>
+        </div>
     </body>
 </html>
