@@ -18,17 +18,10 @@ const io = socket(server);
 io.on("connection", function (socket) {
     console.log("Made socket connection");
 
-    socket.on("message-packet", (arg) => {
-      socket.broadcast.emit("message-response", arg);
-    });
-
     socket.on("report-packet", (arg) => {
-      data = {
-        "type": "Police",
-        "age": 99
-      }
-
-      data["type"]
-      socket.broadcast.emit("message-response", arg);
+      
+    socket.broadcast.emit("message-response", arg);
     });
+    
+
 });
