@@ -14,8 +14,8 @@
                     console.log("Connection Successful!");
                 });
 
-                socket.on("message-response", function(data) {
-                    // Add it to website
+                socket.on("response-packet", function(data) {
+                    data["type"]
                 });
             });
 
@@ -27,9 +27,20 @@
                 $("#report-select-menu").css("display", "none");
             }
 
-            function sendMessage() {
-                
-                
+            function report(type) {
+                var latitude = null;
+                var longitude = null;
+                var name = null;
+                const data = {
+                    "type": type, // Ping type
+                    "location": {
+                        "latitude": latitude, // location part 1
+                        "longitude": longitude // location part 2
+                    },
+                    "timestamp": new Date().toISOString(), // timestamp from the server
+                    "username": name, // username input
+                };
+
                 socket.emit("report-packet", data);
             }
         </script>
