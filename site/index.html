@@ -5,9 +5,14 @@
         <link rel="stylesheet" type="text/css" href="main.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="https://cdn.socket.io/4.8.0/socket.io.min.js" integrity="sha384-OoIbkvzsFFQAG88r+IqMAjyOtYDPGO0cqK5HF5Uosdy/zUEGySeAzytENMDynREd" crossorigin="anonymous"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnaiOvJieIvUWy2VJxugGrq6n-hWN6nv4&libraries=drawing"></script>
+
         <script>
             const socket = io("https://fb85-199-212-64-70.ngrok-free.app/", { transports : ['websocket'] });
             console.log(socket);
+
+            let map;
+            let drawingManager;
 
             $(document).ready(function(){
                 socket.on("connect", () => {
@@ -17,6 +22,9 @@
                 socket.on("response-packet", function(data) {
                     data["type"]
                 });
+
+                initMap(); // Initialize the map on document ready
+
             });
 
             function openReportMenu() {
@@ -51,11 +59,58 @@
                 };
 
                 socket.emit("report-packet", data);
+
             }
+
+            // Initialize and add the Google Map
+            function initMap() {
+            const center = { lat: 43.7735, lng: -79.5019 }; // Center of the map
+
+            // Create the map
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 13,
+                center: center,
+            });
+
+            // Initialize Drawing Manager
+            drawingManager = new google.maps.drawing.DrawingManager({
+                drawingMode: google.maps.drawing.OverlayType.POLYLINE, // Allow drawing polylines
+                drawingControl: true,
+                drawingControlOptions: {
+                    position: google.maps.ControlPosition.TOP_CENTER,
+                    drawingModes: [
+                        google.maps.drawing.OverlayType.POLYLINE,
+                    ],
+                },
+                polylineOptions: {
+                    strokeColor: '#0000FF', // Color of the drawn polyline
+                    strokeWeight: 3,
+                    editable: true, // Allow the drawn polyline to be editable
+                },
+            });
+
+            // Display the drawing tools on the map
+            drawingManager.setMap(map);
+
+            // Add event listener for the completion of a polyline drawing
+            google.maps.event.addListener(drawingManager, "overlaycomplete", (event) => {
+                if (event.type === google.maps.drawing.OverlayType.POLYLINE) {
+                    const path = event.overlay.getPath().getArray();
+                    const coordinates = path.map(latlng => ({
+                        latitude: latlng.lat(),
+                        longitude: latlng.lng()
+                    }));
+                    console.log("Polyline drawn:", coordinates);
+                    
+                    // Emit the drawn coordinates
+                    report('drawn-path', coordinates);
+                }
+            });
+        }
         </script>
     </head>
     <body>
-        <iframe id="map" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/view?zoom=13&center=43.7735%2C-79.5019&key=AIzaSyC8eS78o6WnetL25F4Fg7-74WpSBKAKmSY"></iframe>
+        <div id="map"></div>
         <button id="report-button" onclick="openReportMenu();"><img id="report-button-image" src="img/caution.png" /></button>
         <button id="incentive-button" onclick="openIncentiveMenu();"><img id="incentive-button-image" src="img/dollar-sign.png" /></button>
         <div id="report-select-menu">
